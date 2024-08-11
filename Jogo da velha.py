@@ -1,33 +1,48 @@
-from random import randint
+import random
 
 matriz = [[' ',' ',' '], [' ',' ',' '], [' ',' ',' ']]
 
-def mostrartab():
-    print(f" {matriz[0][0]} | {matriz[0][1]} | {matriz[0][2]} ")
-    print("---+---+---")
-    print(f" {matriz[1][0]} | {matriz[1][1]} | {matriz[1][2]} ")
-    print("---+---+---")
-    print(f" {matriz[2][0]} | {matriz[2][1]} | {matriz[2][2]} ")
-
-
 def jogada(pos1, pos2, jogador):
-    if matriz[pos1][pos2] == 'X' or matriz[pos1][pos2] == 'O':
-        return '0'
+    if pos1 > 3 or pos1 < 1 or pos2 > 3 or pos2 < 1:
+        return False
     else:
-        if jogador == 'X':
-            matriz[pos1][pos2] = 'X'
-        if jogador == 'O':
-            matriz[pos1][pos2] = 'O'
+        if matriz[pos1-1][pos2-1] == 'X' or matriz[pos1-1][pos2-1] == 'O':
+            return False
+        else:
+            if jogador == 'humano':
+                matriz[pos1-1][pos2-1] = 'X'
+            if jogador == 'maquina':
+                matriz[pos1-1][pos2-1] = 'O'
 
-
+def mostrar_tabuleiro():
+    for i in range(3):
+        print(f' {matriz[i][0]} | {matriz[i][1]} | {matriz[i][2]} ')
+        if i <= 1:
+            print("---+---+---")
+        
+jogadores = ['humano', 'maquina']
+jogador1 = random.choice(jogadores)
+if jogador1 == 'humano':
+    jogador2 = 'maquina'
+if jogador1 == 'maquina':
+    jogador2 = 'humano'
 
 while True:
-    mostrartab()
+    mostrar_tabuleiro()
     while True:
-        jogador = 'X'
+        jogador = jogador1
         pos1 = int(input('Escolha a linha: '))
         pos2 = int(input('Escolha a coluna: '))
-        if jogada(pos1,pos2, jogador) == '0':
+        if jogada(pos1,pos2, jogador) == False:
+            print('Jogada invalida')
+        else:
+            break
+    mostrar_tabuleiro()
+    while True:
+        jogador = jogador2
+        pos1 = int(input('Escolha a linha: '))
+        pos2 = int(input('Escolha a coluna: '))
+        if jogada(pos1,pos2, jogador) == False:
             print('Jogada invalida')
         else:
             break
