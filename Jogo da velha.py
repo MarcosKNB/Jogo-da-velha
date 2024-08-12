@@ -28,7 +28,28 @@ def jogada_maquina():
         if matriz[linha-1][coluna-1] == ' ':
             return linha, coluna
             break
-            
+
+
+def verificar_vencedor_diagonal():
+    contador_x = 0
+    contador_bola = 0
+    for i in range(3):
+        if matriz[i][i] == 'X':
+            contador_x += 1
+        if matriz[i][i] == 'O':
+            contador_bola += 1
+    if contador_x == 3:
+        return 'humano venceu'
+    if contador_bola == 3:
+        return 'maquina venceu'
+    contador_x = 0
+    contador_bola = 0
+    if matriz[2][0] == 'X' and matriz[1][1] == 'X' and matriz[0][2] == 'X':
+        return 'humano venceu'
+    if matriz[2][0] == 'O' and matriz[1][1] == 'O' and matriz[0][2] == 'O':
+        return 'maquina venceu'
+                
+                                
 
 jogadores = ['humano', 'maquina']
 jogador1 = random.choice(jogadores)
@@ -38,14 +59,13 @@ if jogador1 == 'maquina':
     jogador2 = 'humano'
 
 
-
 while True:
+    mostrar_tabuleiro()
     while True:
         if jogador1 == 'maquina':
             jogador = jogador1
             pos1, pos2 = jogada_maquina()
             jogada(pos1, pos2, jogador)
-            mostrar_tabuleiro()
             break
         else:
             jogador = jogador1
@@ -54,14 +74,13 @@ while True:
             if jogada(pos1,pos2, jogador) == False:
                 print('Jogada invalida')
             else:
-                mostrar_tabuleiro()
                 break
+    mostrar_tabuleiro()
     while True:
         if jogador2 == 'maquina':
             jogador = jogador2
             pos1, pos2 = jogada_maquina()
             jogada(pos1, pos2, jogador)
-            mostrar_tabuleiro()
             break
         else:
             jogador = jogador2
@@ -70,5 +89,5 @@ while True:
             if jogada(pos1,pos2, jogador) == False:
                 print('Jogada invalida')
             else:
-                mostrar_tabuleiro()
                 break
+    print(verificar_vencedor_diagonal())
