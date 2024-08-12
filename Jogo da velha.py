@@ -94,6 +94,7 @@ contador_de_jogadas = 0
 
 while True:
     mostrar_tabuleiro()
+    print()
     while True:
         if jogador1 == 'maquina':
             jogador = jogador1
@@ -111,6 +112,7 @@ while True:
                 contador_de_jogadas += 1
                 break
     mostrar_tabuleiro()
+    print()
     
     if contador_de_jogadas > 4:
         vencedor = verificar_vencedor_diagonal()
