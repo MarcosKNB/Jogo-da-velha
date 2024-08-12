@@ -19,7 +19,17 @@ def mostrar_tabuleiro():
         print(f' {matriz[i][0]} | {matriz[i][1]} | {matriz[i][2]} ')
         if i <= 1:
             print("---+---+---")
-        
+            
+            
+def jogada_maquina():
+    while True:
+        linha = random.randint(1, 3)           
+        coluna = random.randint(1, 3)
+        if matriz[linha-1][coluna-1] == ' ':
+            return linha, coluna
+            break
+            
+
 jogadores = ['humano', 'maquina']
 jogador1 = random.choice(jogadores)
 if jogador1 == 'humano':
@@ -27,23 +37,38 @@ if jogador1 == 'humano':
 if jogador1 == 'maquina':
     jogador2 = 'humano'
 
+
+
 while True:
-    mostrar_tabuleiro()
     while True:
-        jogador = jogador1
-        pos1 = int(input('Escolha a linha: '))
-        pos2 = int(input('Escolha a coluna: '))
-        if jogada(pos1,pos2, jogador) == False:
-            print('Jogada invalida')
-        else:
+        if jogador1 == 'maquina':
+            jogador = jogador1
+            pos1, pos2 = jogada_maquina()
+            jogada(pos1, pos2, jogador)
+            mostrar_tabuleiro()
             break
-    mostrar_tabuleiro()
+        else:
+            jogador = jogador1
+            pos1 = int(input('Escolha a linha: '))
+            pos2 = int(input('Escolha a coluna: '))
+            if jogada(pos1,pos2, jogador) == False:
+                print('Jogada invalida')
+            else:
+                mostrar_tabuleiro()
+                break
     while True:
-        jogador = jogador2
-        pos1 = int(input('Escolha a linha: '))
-        pos2 = int(input('Escolha a coluna: '))
-        if jogada(pos1,pos2, jogador) == False:
-            print('Jogada invalida')
-        else:
+        if jogador2 == 'maquina':
+            jogador = jogador2
+            pos1, pos2 = jogada_maquina()
+            jogada(pos1, pos2, jogador)
+            mostrar_tabuleiro()
             break
-    
+        else:
+            jogador = jogador2
+            pos1 = int(input('Escolha a linha: '))
+            pos2 = int(input('Escolha a coluna: '))
+            if jogada(pos1,pos2, jogador) == False:
+                print('Jogada invalida')
+            else:
+                mostrar_tabuleiro()
+                break
