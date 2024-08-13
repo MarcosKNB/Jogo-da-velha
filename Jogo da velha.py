@@ -19,6 +19,7 @@ def mostrar_tabuleiro():
         print(f' {matriz[i][0]} | {matriz[i][1]} | {matriz[i][2]} ')
         if i <= 1:
             print("---+---+---")
+    print('============')
                         
 def jogada_maquina():
     while True:
@@ -37,17 +38,13 @@ def verificar_vencedor():
         if matriz[i][i] == 'O':
             contador_bola += 1
     if contador_x == 3:
-        vencedor_x = True
         return 'vencedor x'
     if contador_bola == 3:
-        vencedor_bola = True
         return 'vencedor bola'
 
     if matriz[2][0] == 'X' and matriz[1][1] == 'X' and matriz[0][2] == 'X':
-        vencedor_x = True
         return 'vencedor x'
     if matriz[2][0] == 'O' and matriz[1][1] == 'O' and matriz[0][2] == 'O':
-        vencedor_bola = True
         return 'vencedor bola'
     
     for i in range(3):
@@ -90,7 +87,6 @@ contador_de_jogadas = 0
 
 while True:
     mostrar_tabuleiro()
-    print('============')
     while True:
         if jogador1 == 'maquina':
             pos1, pos2 = jogada_maquina()
@@ -106,7 +102,6 @@ while True:
                 contador_de_jogadas += 1
                 break
     mostrar_tabuleiro()
-    print('============')
     
     if contador_de_jogadas > 4:
         vencedor = verificar_vencedor()
