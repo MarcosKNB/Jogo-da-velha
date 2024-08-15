@@ -1,30 +1,35 @@
 import random
 
 matriz = [[' ',' ',' '], [' ',' ',' '], [' ',' ',' ']]
+contador_de_jogadas = 0
 
-def jogada(pos1, pos2, jogador):
-    if pos1 < 4 and pos1 > 0 and pos2 < 4 and pos2 > 0 and matriz[pos1-1][pos2-1] == ' ':
-        if jogador == 'humano':
-                matriz[pos1-1][pos2-1] = 'X'
-        if jogador == 'maquina':
-            matriz[pos1-1][pos2-1] = 'O'
+def jogada(jogador):
+    global contador_de_jogadas
+    if jogador == 'humano':
+        while True:
+            pos1 = int(input('Escolha a linha: ')) - 1
+            pos2 = int(input('Escolha a coluna: ')) - 1
+            if pos1 < 3 and pos1 > -1 and pos2 < 3 and pos2 > -1 and matriz[pos1][pos2] == ' ':
+                matriz[pos1][pos2] = 'X'
+                contador_de_jogadas += 1
+                break
+            else:
+                print('Jogada invalida')
     else:
-        return False
+        while True:
+            linha, coluna = random.randint(0, 2), random.randint(0,2)        
+            if matriz[linha][coluna] == ' ':
+                matriz[linha][coluna] = 'O'
+                contador_de_jogadas += 1
+                break
             
 def mostrar_tabuleiro():
     for i in range(3):
         print(f' {matriz[i][0]} | {matriz[i][1]} | {matriz[i][2]} ')
         if i <= 1:
             print("---+---+---")
-                        
-def jogada_maquina():
-    while True:
-        linha = random.randint(1, 3)           
-        coluna = random.randint(1, 3)
-        if matriz[linha-1][coluna-1] == ' ':
-            return linha, coluna
-            break
-
+    print('============')
+                         
 def verificar_vencedor():
     contador_X = 0
     contador_O = 0
@@ -46,15 +51,28 @@ def verificar_vencedor():
                 contador_O_horizontal += 1
             if matriz[j][i] == 'O':
                 contador_O_vertical += 1
-            if contador_X == 3 or contador_X_vertical == 3 or contador_X_horizontal == 3:
-                return 'vencedor X'
-            if contador_O == 3 or contador_O_horizontal == 3 or contador_O_vertical == 3:
-                return 'vencedor O'    
+        if contador_X == 3 or contador_X_vertical == 3 or contador_X_horizontal == 3:
+            return 'vencedor X'
+        if contador_O == 3 or contador_O_horizontal == 3 or contador_O_vertical == 3:
+            return 'vencedor O'    
+
     for sinal in 'XO':
         diagonal_contraria = matriz[2][0] == sinal and matriz[1][1] == sinal and matriz[0][2] == sinal
         if diagonal_contraria:
             return (f'vencedor {sinal}')
-                        
+
+def executa_verificar_vencedor():
+    if contador_de_jogadas > 4:
+        if verificar_vencedor() == 'vencedor X' :
+            print('Voce venceu')
+            return True
+        elif verificar_vencedor() == 'vencedor O':
+            print('Computador venceu')
+            return True
+    if contador_de_jogadas > 8:
+        print('Ninguem venceu')
+        return True                        
+
 jogadores = ['humano', 'maquina']
 jogador1 = random.choice(jogadores)
 if jogador1 == 'humano':
@@ -62,63 +80,28 @@ if jogador1 == 'humano':
 if jogador1 == 'maquina':
     jogador2 = 'humano'
 
-contador_de_jogadas = 0
 
 while True:
     mostrar_tabuleiro()
-    print('============')
     while True:
         if jogador1 == 'maquina':
-            pos1, pos2 = jogada_maquina()
-            jogada(pos1, pos2, jogador1)
-            contador_de_jogadas += 1
+            jogada('maquina')
             break
         else:
-            pos1 = int(input('Escolha a linha: '))
-            pos2 = int(input('Escolha a coluna: '))
-            if jogada(pos1,pos2, jogador1) == False:
-                print('Jogada invalida')
-            else:
-                contador_de_jogadas += 1
-                break
+            jogada('humano')
+            break
     mostrar_tabuleiro()
-    print('============')
     
-    if contador_de_jogadas > 4:
-        vencedor = verificar_vencedor()
-        if vencedor == 'vencedor X':
-            print('Voce venceu')
-            break
-        if vencedor == 'vencedor O':
-            print('Computador venceu')
-            break
-    if contador_de_jogadas > 8:
-        print('Ninguem venceu')
-        break    
+    if executa_verificar_vencedor() == True:
+        break
 
     while True:
         if jogador2 == 'maquina':
-            pos1, pos2 = jogada_maquina()
-            jogada(pos1, pos2, jogador2)
-            contador_de_jogadas += 1
+            jogada('maquina')
             break
         else:
-            pos1 = int(input('Escolha a linha: '))
-            pos2 = int(input('Escolha a coluna: '))
-            if jogada(pos1,pos2, jogador2) == False:
-                print('Jogada invalida')
-            else:
-                contador_de_jogadas += 1
-                break
+            jogada('humano')
+            break
     
-    if contador_de_jogadas > 4:
-        vencedor = verificar_vencedor()
-        if vencedor == 'vencedor X' :
-            print('Voce venceu')
-            break
-        if vencedor == 'vencedor O':
-            print('Computador vencecu')
-            break
-    if contador_de_jogadas > 8:
-        print('Ninguem venceu')
+    if executa_verificar_vencedor() == True:
         break
