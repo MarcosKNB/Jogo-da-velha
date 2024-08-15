@@ -36,7 +36,7 @@ def verifica_vencedor():
     for sinal in 'XO':
         diagonal_contraria = matriz[2][0] == sinal and matriz[1][1] == sinal and matriz[0][2] == sinal
         if diagonal_contraria:
-            return (f'vencedor {sinal}')
+            diagonal_contraria = True
         contador_diagonal = 0
         for i in range(3):
             contador_horizontal = 0
@@ -48,20 +48,17 @@ def verifica_vencedor():
                     contador_horizontal += 1
                 if matriz[j][i] == sinal:
                     contador_vertical += 1
-        if contador_diagonal == 3 or contador_horizontal == 3 or contador_vertical == 3:
-            return f'vencedor {sinal}'
-        
-def executa_verifica_vencedor():
-    if contador_de_jogadas > 4:
-        if verifica_vencedor() == 'vencedor X' :
-            print('Voce venceu')
-            return True
-        elif verifica_vencedor() == 'vencedor O':
-            print('Computador venceu')
-            return True
-    if contador_de_jogadas > 8:
-        print('Ninguem venceu')
-        return True                        
+        if contador_diagonal == 3 or contador_horizontal == 3 or contador_vertical == 3 or diagonal_contraria == True:
+            if contador_de_jogadas > 4:
+                if sinal == 'X' :
+                    print('Voce venceu')
+                    return True
+                elif sinal == 'O':
+                    print('Computador venceu')
+                    return True
+            if contador_de_jogadas > 8:
+                print('Ninguem venceu')
+                return True                        
 
 jogadores = ['humano', 'maquina']
 jogador1 = random.choice(jogadores)
@@ -74,7 +71,7 @@ mostrar_tabuleiro()
 while True:    
     for i in ordem:
         jogada(i)
-        if executa_verifica_vencedor() == True:
+        if verifica_vencedor() == True:
             terminar = True
             break
     if terminar == True:
