@@ -48,14 +48,14 @@ def verifica_vencedor():
                     contador_horizontal += 1
                 if matriz[j][i] == sinal:
                     contador_vertical += 1
-        if contador_diagonal == 3 or contador_horizontal == 3 or contador_vertical == 3 or diagonal_contraria == True:
-            if contador_de_jogadas > 4:
-                if sinal == 'X' :
-                    print('Voce venceu')
-                    return True
-                elif sinal == 'O':
-                    print('Computador venceu')
-                    return True
+            if contador_diagonal == 3 or contador_horizontal == 3 or contador_vertical == 3 or diagonal_contraria == True:
+                if contador_de_jogadas > 4:
+                    if sinal == 'X' :
+                        print('Voce venceu')
+                        return True
+                    elif sinal == 'O':
+                        print('Computador venceu') 
+                        return True
             if contador_de_jogadas > 8:
                 print('Ninguem venceu')
                 return True                        
