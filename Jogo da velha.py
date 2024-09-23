@@ -56,9 +56,9 @@ def verifica_vencedor():
                     elif sinal == 'O':
                         print('Computador venceu') 
                         return True
-            if contador_de_jogadas > 8:
-                print('Ninguem venceu')
-                return True                        
+        if contador_de_jogadas > 8:
+            print('Ninguem venceu')
+            return True                        
 
 jogadores = ['humano', 'maquina']
 jogador1 = random.choice(jogadores)
