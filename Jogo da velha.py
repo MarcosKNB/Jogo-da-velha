@@ -22,11 +22,13 @@ def jogada(jogador):
                 mostrar_tabuleiro()
                 break
             else:
-                print('Jogada invalida')
+                print('Jogada invalida, por favor digite novamente.')
     else:
         while True:
             linha, coluna = random.randint(0, 2), random.randint(0,2)        
             if matriz[linha][coluna] == ' ':
+                print('Minha vez de jogar.')
+                print(f'Vou jogar na linha {linha+1} e coluna {coluna+1}.')
                 matriz[linha][coluna] = 'O'
                 contador_de_jogadas += 1
                 mostrar_tabuleiro()
@@ -51,10 +53,10 @@ def verifica_vencedor():
             if contador_diagonal == 3 or contador_horizontal == 3 or contador_vertical == 3 or diagonal_contraria == True:
                 if contador_de_jogadas > 4:
                     if sinal == 'X' :
-                        print('Voce venceu')
+                        print('Voce venceu. D:')
                         return True
                     elif sinal == 'O':
-                        print('Computador venceu') 
+                        print('As máquinas venceram. :D') 
                         return True
         if contador_de_jogadas > 8:
             print('Ninguem venceu')
@@ -66,7 +68,9 @@ if jogador1 == 'humano':
     ordem = ['humano', 'maquina']
 if jogador1 == 'maquina':
     ordem = ['maquina','humano']
-    
+
+
+print('Que o jogo comece!!!')    
 mostrar_tabuleiro()
 while True:    
     for i in ordem:
